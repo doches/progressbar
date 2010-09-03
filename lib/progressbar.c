@@ -17,6 +17,8 @@ progressbar *progressbar_new(const char *label,unsigned int max)
 	memset(new->progress_str,' ',new->steps);
 	new->progress_str[new->steps] = '\0';
 	new->last_printed = 0;
+    
+  progressbar_draw(new, 0);
 	
 	return new;
 }
