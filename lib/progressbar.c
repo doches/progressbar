@@ -82,6 +82,10 @@ void progressbar_finish(progressbar *bar)
 	// Draw one more time, with the actual time to completion instead of a useless
 	// 00:00:00 remaining estimate.
 	unsigned int offset = time(0) - (bar->start);
+	// Make sure we fill the progressbar too, so things look complete.
+	for(int i=bar->step;i<bar->steps;i++) {
+		bar->progress_str[i] = bar->format[1];
+	}
 	progressbar_draw(bar,offset);
 	
 	// Print a newline, so that future outputs to stderr look prettier
