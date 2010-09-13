@@ -14,10 +14,10 @@ statusbar *statusbar_new_with_format(const char *label,const char *format)
 	statusbar *new = malloc(sizeof(statusbar));
 	new->label = label;
 	new->start_time = time(0);
-    new->format_length = strlen(format);
+	new->format_length = strlen(format);
 	new->format = malloc(sizeof(char)*(new->format_length+1));
-    strcpy(new->format,format);
-    new->format_index = 0;
+	strcpy(new->format,format);
+	new->format_index = 0;
 	new->last_printed = 0;
 	
 	return new;
@@ -25,7 +25,7 @@ statusbar *statusbar_new_with_format(const char *label,const char *format)
 
 statusbar *statusbar_new(const char *label)
 {
-    return statusbar_new_with_format(label, "-\\|/");
+return statusbar_new_with_format(label, "-\\|/");
 }
 
 void statusbar_free(statusbar *bar)
@@ -41,10 +41,10 @@ void statusbar_free(statusbar *bar)
 void statusbar_inc(statusbar *bar)
 {
 	bar->format_index++;
-    if (bar->format_index >= bar->format_length) {
-        bar->format_index = 0;
-    }
-    statusbar_draw(bar);
+	if (bar->format_index >= bar->format_length) {
+		bar->format_index = 0;
+	}
+	statusbar_draw(bar);
     
 	return;
 }
@@ -57,7 +57,7 @@ void statusbar_draw(statusbar *bar)
 		fprintf(stderr,"\b");
 	}
 	
-    fprintf(stderr,"%s: %c%n",bar->label,bar->format[bar->format_index],&(bar->last_printed));
+	fprintf(stderr,"%s: %c%n",bar->label,bar->format[bar->format_index],&(bar->last_printed));
     
 	return;
 }
@@ -74,23 +74,23 @@ void statusbar_finish(statusbar *bar)
 	offset -= m*60;
 	unsigned int s = offset;
     
-    // Erase the last draw
+	// Erase the last draw
 	for(int i=0;i<bar->last_printed;i++) {
 		fprintf(stderr,"\b");
 	}
     
-    // Calculate number of spaces for right-justified time to completion
-    fprintf(stderr,"%s: %3d:%02d:%02d%n",bar->label,h,m,s,&(bar->last_printed));
+	// Calculate number of spaces for right-justified time to completion
+	fprintf(stderr,"%s: %3d:%02d:%02d%n",bar->label,h,m,s,&(bar->last_printed));
 	for(int i=0;i<bar->last_printed;i++) {
 		fprintf(stderr,"\b");
 	}
     
-    // Print right-justified
+	// Print right-justified
 	fprintf(stderr,"%s: ",bar->label);
-    for (int i=0; i<80-(bar->last_printed); i++) {
-        fprintf(stderr," ");
-    }
-    fprintf(stderr,"%3d:%02d:%02d\n",h,m,s);
+  for (int i=0; i<80-(bar->last_printed); i++) {
+		fprintf(stderr," ");
+	}
+	fprintf(stderr,"%3d:%02d:%02d\n",h,m,s);
 	
 	// We've finished with this statusbar, so go ahead and free it.
 	statusbar_free(bar);

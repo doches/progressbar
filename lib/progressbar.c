@@ -41,7 +41,7 @@ void progressbar_inc(progressbar *bar)
 	
 	// Only redraw the progressbar if the visual progress display (the current 'step')
 	// has changed. 
-	if(current_step != bar->step) {
+	if(1 || current_step != bar->step) {
 		// Fill the bar to the current step...
 		for(int i=bar->step;i<current_step;i++) {
 			bar->progress_str[i] = bar->format[1];
