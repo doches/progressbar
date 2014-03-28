@@ -7,21 +7,21 @@ int main(void)
     // Status bar
     statusbar *status = statusbar_new("Indeterminate");
     for (int i=0; i<30; i++) {
-		for(int k=0;k<50000000;k++);
+		for(int k=0;k<50000000;k++) {}
         statusbar_inc(status);
     }
     statusbar_finish(status);
     
     status = statusbar_new("Status bar with a really long label");
     for (int i=0; i<10; i++) {
-		for(int k=0;k<50000000;k++);
+		for(int k=0;k<50000000;k++) {}
         statusbar_inc(status);
     }
     statusbar_finish(status);
     
     status = statusbar_new_with_format("Custom","(|)|");
     for (int i=0; i<30; i++) {
-		for(int k=0;k<50000000;k++);
+		for(int k=0;k<50000000;k++) {}
         statusbar_inc(status);
     }
     statusbar_finish(status);
@@ -31,7 +31,7 @@ int main(void)
 	progressbar *progress = progressbar_new("Smooth",max);
 	for(int i=0;i<max;i++) {
 		progressbar_inc(progress);
-		for(int k=0;k<2500000;k++);
+		for(int k=0;k<2500000;k++) {}
 	}
 	progressbar_finish(progress);
 	
@@ -44,7 +44,7 @@ int main(void)
 	
 	progress = progressbar_new("Fast",100);
 	for(int i=0;i<100;i++) {
-		for(int k=0;k<1000000;k++);
+		for(int k=0;k<1000000;k++) {}
 		progressbar_inc(progress);
 	}
 	progressbar_finish(progress);

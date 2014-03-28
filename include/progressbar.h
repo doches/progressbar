@@ -17,21 +17,29 @@ typedef struct _progressbar_t
 	unsigned int step;
 	unsigned int steps;
 	
-	unsigned int start;
+	time_t start;
 	const char *label;
 	char *progress_str;
 	char *format;
 	int last_printed;
+	unsigned long last_print;
+	char * termtype;
 } progressbar;
 
 // Create a new progressbar with the specified label and # of steps
-progressbar *progressbar_new(const char *label,unsigned int max);
+progressbar *progressbar_new(char *label,unsigned int max);
 
 // Free an existing progress bar. Don't call this directly; call *progressbar_finish* instead.
 void progressbar_free(progressbar *bar);
 
 // Increment the given progressbar. Don't increment past the initialized # of steps, though.
 void progressbar_inc(progressbar *bar);
+
+// Set the current status on the given progressbar. Don't increment past the initialized # of steps, though.
+void progressbar_update(progressbar *bar, unsigned int value);
+
+// Change the current label
+void progressbar_update_label(progressbar *bar, char *label);
 
 // Finalize (and free!) a progressbar. Call this when you're done, or if you break out 
 // partway through.
