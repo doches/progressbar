@@ -1,14 +1,12 @@
-## What is this thing?
+Progressbar for C/C++ programs
+========================================
 
-progressbar is a C-class (it's a convention, dammit) for displaying attractive
-progress bars on the command line. It's heavily influenced by the ruby ProgressBar
-gem, whose api and behaviour it imitates.
+progressbar is a C-class for displaying attractive progress bars on the 
+command line, similar to what is available for python or ruby.
 
-## Ok, what the hell is a C-class, and how do I use one?
+progressbar is implemented in pure C99, but using a object-oriented convention. 
 
-progressbar is implemented in pure C99, but using a vaguely object-oriented convention. 
-
-Example usage:
+Example usage::
 
     progressbar *progress = progressbar_new("Loading",100);
     for(int i=0;i<100;i++)
@@ -18,10 +16,12 @@ Example usage:
     }
     progressbar_finish(progress);
 
-
 Additional examples can be found in `test/progressbar_demo.c`
 
-## Why did you do this?
+Code Documentation is available at http://johannesbuchner.github.io/progressbar/
+
+Why did you do this?
+----------------------
 
 One of the things I miss most when I'm writing C instead of Ruby is the
 how ridiculously easy it is to write user-friendly, informative CLI apps
@@ -31,7 +31,9 @@ a tool to handle some long-running, processor-intensive task, I'd really
 like to have a way of seeing at a glance how much time is remaining and
 how far along we've gotten. Enter progressbar!
 
-## Can I use it?
+License
+----------
 
-Of course, if you're so inclined. progressbar is licensed under a simplified BSD license,
-so feel free to take it and run with it. Details can be found in the `LICENSE` file.
+Progressbar is licensed under a simplified BSD license (see LICENSE).
+So feel free to take it and run with it.
+
