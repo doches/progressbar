@@ -24,10 +24,13 @@
  * \section Example Example Code
  * See \ref main in progressbar_demo.c
  *
+ * Download the code from the repository at https://github.com/JohannesBuchner/progressbar
+ * 
  * \author Trevor Fountain
  * \author Johannes Buchner
  * \date 2010-2014
  * \copyright BSD 3-Clause
+ * 
  * 
  **/
 

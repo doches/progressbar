@@ -18,6 +18,8 @@ Example usage::
 
 Additional examples can be found in `test/progressbar_demo.c`
 
+Code Documentation is available at http://johannesbuchner.github.io/progressbar/
+
 Why did you do this?
 ----------------------
 
