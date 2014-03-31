@@ -6,8 +6,7 @@ command line, similar to what is available for python or ruby.
 
 progressbar is implemented in pure C99, but using a object-oriented convention. 
 
-Example usage
--------------------
+Example usage::
 
     progressbar *progress = progressbar_new("Loading",100);
     for(int i=0;i<100;i++)
