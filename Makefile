@@ -2,7 +2,7 @@ CC = gcc
 CFLAGS = -std=c99 -Iinclude
 EXECUTABLES = demo
 
-all: demo progressbar.so
+all: demo libprogressbar.so
 
 demo: progressbar.o demo.o statusbar.o
 	$(CC) $(CFLAGS) progressbar.o statusbar.o progressbar_demo.o -lncurses -o demo

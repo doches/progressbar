@@ -2,6 +2,38 @@
 #include "statusbar.h"
 #include "unistd.h"
 
+/**
+ * \file
+ * \mainpage Progressbar and Statusbar -- Continuous console status updates
+ * 
+ * \section Progressbar
+ * Creating and starting the progress bar: \ref progressbar_new 
+ * 
+ * Updating the current progress: \ref progressbar_update, \ref progressbar_inc, \ref progressbar_update_label 
+ * 
+ * Finishing the progressbar (on success or failure): \ref progressbar_finish
+ * 
+ * \section Statusbar
+ * 
+ * Creating and starting the status bar: \ref statusbar_new 
+ * 
+ * Updating the current progress: \ref statusbar_inc
+ * 
+ * Finishing the progressbar (on success or failure): \ref statusbar_finish
+ *
+ * \section Example Example Code
+ * See \ref main in progressbar_demo.c
+ *
+ * \author Trevor Fountain
+ * \author Johannes Buchner
+ * \date 2010-2014
+ * \copyright BSD 3-Clause
+ * 
+ **/
+
+/** 
+ *Example for statusbar and progressbar usage
+ **/
 int main(void)
 {
     // Status bar

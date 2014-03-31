@@ -2,3 +2,4 @@ demo
 doc/
 *~
 *.o
+*.so
