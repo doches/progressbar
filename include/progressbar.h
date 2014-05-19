@@ -22,31 +22,31 @@
  */
 typedef struct _progressbar_t
 {
-	/// maximum value
-	unsigned int max;
-	/// current value
-	unsigned int value;
-	
-	/// maximum number of steps
-	unsigned int steps;
-	/// current step
-	unsigned int step;
-	
-	/// time progressbar was started
-	time_t start;
-	/// label
-	const char *label;
-	/// the progress bar stored as text
-	char *progress_str;
-	/// characters for the beginning, filling and end of the
-	/// progressbar. E.g. |###    | has |#|
-	char *format;
-	/// number of characters printed on last output
-	int last_printed;
-	/// time of last printing (in microseconds)
-	unsigned long last_print;
-	/// terminal information
-	char * termtype;
+  /// maximum value
+  unsigned int max;
+  /// current value
+  unsigned int value;
+  
+  /// maximum number of steps
+  unsigned int steps;
+  /// current step
+  unsigned int step;
+  
+  /// time progressbar was started
+  time_t start;
+  /// label
+  const char *label;
+  /// the progress bar stored as text
+  char *progress_str;
+  /// characters for the beginning, filling and end of the
+  /// progressbar. E.g. |###    | has |#|
+  char *format;
+  /// number of characters printed on last output
+  int last_printed;
+  /// time of last printing (in microseconds)
+  unsigned long last_print;
+  /// terminal information
+  char * termtype;
 } progressbar;
 
 /// Create a new progressbar with the specified label and # of steps

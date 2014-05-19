@@ -35,8 +35,8 @@ typedef struct _statusbar_t
     const char *label;
     int format_index;
     int format_length;
-	char *format;
-	int last_printed;
+  char *format;
+  int last_printed;
 } statusbar;
 
 /// Create a new statusbar with the specified label and format string
