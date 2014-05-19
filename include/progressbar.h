@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-/** 
+/**
  * \file
  * \author Trevor Fountain
  * \author Johannes Buchner
@@ -26,12 +26,12 @@ typedef struct _progressbar_t
   unsigned int max;
   /// current value
   unsigned int value;
-  
+
   /// maximum number of steps
   unsigned int steps;
   /// current step
   unsigned int step;
-  
+
   /// time progressbar was started
   time_t start;
   /// label
@@ -43,8 +43,6 @@ typedef struct _progressbar_t
   char *format;
   /// number of characters printed on last output
   int last_printed;
-  /// time of last printing (in microseconds)
-  unsigned long last_print;
   /// terminal information
   char * termtype;
 } progressbar;
@@ -65,11 +63,11 @@ void progressbar_update(progressbar *bar, unsigned int value);
 /// Does not update display or copy the label
 void progressbar_update_label(progressbar *bar, char *label);
 
-/// Finalize (and free!) a progressbar. Call this when you're done, or if you break out 
+/// Finalize (and free!) a progressbar. Call this when you're done, or if you break out
 /// partway through.
 void progressbar_finish(progressbar *bar);
 
-/// Draw a progressbar to the screen with the specified time display. Don't call this directly, 
+/// Draw a progressbar to the screen with the specified time display. Don't call this directly,
 /// as it's called internally by *progressbar_inc*.
 void progressbar_draw(progressbar *bar, unsigned int time);
 
