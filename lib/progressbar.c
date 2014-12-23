@@ -5,7 +5,7 @@
 
 #define PROGRESSBAR_WIDTH 200
 
-progressbar *progressbar_new(char *label,unsigned int max)
+progressbar *progressbar_new(char *label,unsigned long max)
 {
   progressbar *new = malloc(sizeof(progressbar));
   progressbar_update_label(new, label);
@@ -67,10 +67,10 @@ void progressbar_free(progressbar *bar)
   return;
 }
 
-void progressbar_update(progressbar *bar, unsigned int value)
+void progressbar_update(progressbar *bar, unsigned long value)
 {
   bar->value = value;
-  unsigned int current_step = (bar->value * bar->steps / (float)bar->max);
+  unsigned int current_step = (bar->value * (unsigned long)bar->steps / (long double)bar->max);
 
   // Only redraw the progressbar if the visual progress display (the current 'step')
   // has changed.
@@ -91,7 +91,7 @@ void progressbar_update(progressbar *bar, unsigned int value)
     double offset = difftime(time(NULL), bar->start);
     unsigned int estimate;
     if (bar->value > 0 && offset > 0)
-       estimate = (offset/(float)bar->value) * (bar->max - bar->value);
+       estimate = (offset/(long double)bar->value) * (bar->max - bar->value);
     else
       estimate = 0;
     progressbar_draw(bar,estimate);
