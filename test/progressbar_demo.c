@@ -42,28 +42,6 @@
  **/
 int main(void)
 {
-    // Status bar
-    statusbar *status = statusbar_new("Indeterminate");
-    for (int i=0; i<30; i++) {
-        usleep(SLEEP_MS);
-        statusbar_inc(status);
-    }
-    statusbar_finish(status);
-
-    status = statusbar_new("Status bar with a really long label");
-    for (int i=0; i<10; i++) {
-        usleep(SLEEP_MS);
-        statusbar_inc(status);
-    }
-    statusbar_finish(status);
-
-    status = statusbar_new_with_format("Custom","(|)|");
-    for (int i=0; i<30; i++) {
-        usleep(SLEEP_MS);
-        statusbar_inc(status);
-    }
-    statusbar_finish(status);
-
     // Progress bar
     int max = 60;
     progressbar *smooth = progressbar_new("Smooth",max);
@@ -86,4 +64,26 @@ int main(void)
         progressbar_inc(fast);
     }
     progressbar_finish(fast);
+
+    // Status bar
+    statusbar *status = statusbar_new("Indeterminate");
+    for (int i=0; i<30; i++) {
+        usleep(SLEEP_MS);
+        statusbar_inc(status);
+    }
+    statusbar_finish(status);
+
+    statusbar *longStatus = statusbar_new("Status bar with a really long label");
+    for (int i=0; i<10; i++) {
+        usleep(SLEEP_MS);
+        statusbar_inc(longStatus);
+    }
+    statusbar_finish(longStatus);
+
+    statusbar *customStatus = statusbar_new_with_format("Custom","(|)|");
+    for (int i=0; i<30; i++) {
+        usleep(SLEEP_MS);
+        statusbar_inc(customStatus);
+    }
+    statusbar_finish(customStatus);
 }
