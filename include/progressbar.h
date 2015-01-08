@@ -1,3 +1,15 @@
+/**
+* \file
+* \author Trevor Fountain
+* \author Johannes Buchner
+* \author Erik Garrison
+* \date 2010-2014
+* \copyright BSD 3-Clause
+*
+* progressbar -- a C class (by convention) for displaying progress
+* on the command line (to stderr).
+*/
+
 #ifndef PROGRESSBAR_H
 #define PROGRESSBAR_H
 
@@ -5,17 +17,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-/**
- * \file
- * \author Trevor Fountain
- * \author Johannes Buchner
- * \date 2012-2014
- * \copyright BSD 3-Clause
- *
- * progressbar -- a C class (by convention) for displaying progress
- * on the command line (to stderr).
- */
 
 /**
  * Progressbar data structure (do not modify or create directly)

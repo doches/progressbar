@@ -1,12 +1,14 @@
-/*
- *  statusbar.c
- *  corncob
- *
- *  Created by Trevor Fountain on 7/13/10.
- *  Copyright 2010 Expat Games. All rights reserved.
- *
- */
-
+/**
+* \file
+* \author Trevor Fountain
+* \author Johannes Buchner
+* \author Erik Garrison
+* \date 2010-2014
+* \copyright BSD 3-Clause
+*
+* statusbar -- a C class (by convention) for displaying progress
+* on the command line (to stderr).
+*/
 #include "statusbar.h"
 
 statusbar *statusbar_new_with_format(const char *label,const char *format)

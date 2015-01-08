@@ -1,7 +1,3 @@
-#include "progressbar.h"
-#include "statusbar.h"
-#include <unistd.h>
-
 /**
  * \file
  * \mainpage Progressbar and Statusbar -- Continuous console status updates
@@ -28,11 +24,16 @@
  *
  * \author Trevor Fountain
  * \author Johannes Buchner
+ * \author Erik Garrison
  * \date 2010-2014
  * \copyright BSD 3-Clause
  *
  *
  **/
+
+ #include "progressbar.h"
+ #include "statusbar.h"
+ #include <unistd.h>
 
 #define SLEEP_MS 100000
 
@@ -64,25 +65,25 @@ int main(void)
     statusbar_finish(status);
 
     // Progress bar
-    int max = 240;
-    progressbar *progress = progressbar_new("Smooth",max);
+    int max = 60;
+    progressbar *smooth = progressbar_new("Smooth",max);
     for(int i=0;i<max;i++) {
         usleep(SLEEP_MS);
-        progressbar_inc(progress);
+        progressbar_inc(smooth);
     }
-    progressbar_finish(progress);
+    progressbar_finish(smooth);
 
-    progress = progressbar_new("Three Second Task with a long label",3);
+    progressbar *longlabel = progressbar_new("Three Second Task with a long label",3);
     for(int i=0;i<3;i++) {
-        progressbar_inc(progress);
+        progressbar_inc(longlabel);
         sleep(1);
     }
-    progressbar_finish(progress);
+    progressbar_finish(longlabel);
 
-    progress = progressbar_new("Fast",100);
+    progressbar *fast = progressbar_new("Fast",100);
     for(int i=0;i<100;i++) {
         usleep(SLEEP_MS);
-        progressbar_inc(progress);
+        progressbar_inc(fast);
     }
-    progressbar_finish(progress);
+    progressbar_finish(fast);
 }
