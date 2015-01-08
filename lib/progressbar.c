@@ -17,7 +17,7 @@
 
 #define PROGRESSBAR_WIDTH 200
 
-progressbar *progressbar_new(char *label,unsigned long max)
+progressbar *progressbar_new_with_format(char *label, unsigned long max, const char *format)
 {
   progressbar *new = malloc(sizeof(progressbar));
   progressbar_update_label(new, label);
@@ -27,9 +27,7 @@ progressbar *progressbar_new(char *label,unsigned long max)
   new->step = 0;
   new->progress_str = malloc(sizeof(char)*(PROGRESSBAR_WIDTH+1));
   new->format = malloc(sizeof(char)*4);
-  new->format[0] = '|';
-  new->format[1] = '=';
-  new->format[2] = '|';
+  strcpy(new->format, format);
   memset(new->progress_str,' ', PROGRESSBAR_WIDTH);
   new->progress_str[new->steps] = 0;
   new->last_printed = 0;
@@ -38,6 +36,11 @@ progressbar *progressbar_new(char *label,unsigned long max)
   progressbar_draw(new, 0);
 
   return new;
+}
+
+progressbar *progressbar_new(char *label, unsigned long max)
+{
+  return progressbar_new_with_format(label, max, "|=|");
 }
 
 void progressbar_update_label(progressbar *bar, char *label)
@@ -58,6 +61,9 @@ void progressbar_update_label(progressbar *bar, char *label)
   if (strlen(label) >= maxstrlen) {
     label[maxstrlen] = 0;
   }
+  // Reserve two possible colums for pre- and post- spacing
+  columns -= 2;
+
   newsteps = columns - (strlen(label) + 17);
   if (newsteps < 0)
     newsteps = 0;
@@ -124,7 +130,7 @@ void progressbar_draw(progressbar *bar,unsigned int timeleft)
   timeleft -= m*60;
   unsigned int s = timeleft;
   // ...and display!
-  bar->last_printed = fprintf(stderr,"%s%c%s%cETA:%2dh%02dm%02ds\r",
+  bar->last_printed = fprintf(stderr,"%s %c%s%c ETA:%2dh%02dm%02ds\r",
     bar->label,bar->format[0],bar->progress_str,bar->format[2],h,m,s);
   return;
 }

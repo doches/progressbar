@@ -51,6 +51,12 @@ typedef struct _progressbar_t
 /// Create a new progressbar with the specified label and # of steps
 progressbar *progressbar_new(char *label, unsigned long max);
 
+/// Create a new progressbar with the specified label, # of steps, and format string.
+/// Format strings are three-character strings indicating the left bar, fill, and
+/// right bar (in that order). For example, "(.)" would result in a progress bar
+/// like "(...........)".
+progressbar *progressbar_new_with_format(char *label, unsigned long max, const char *format);
+
 /// Free an existing progress bar. Don't call this directly; call *progressbar_finish* instead.
 void progressbar_free(progressbar *bar);
 

@@ -65,10 +65,7 @@ int main(void)
     }
     progressbar_finish(fast);
 
-    progressbar *custom = progressbar_new("Custom",max);
-    custom->format[0] = '[';
-    custom->format[1] = '-';
-    custom->format[2] = ']';
+    progressbar *custom = progressbar_new_with_format("Custom",max,"<.>");
     for(int i=0;i<max;i++) {
       usleep(SLEEP_MS);
       progressbar_inc(custom);
