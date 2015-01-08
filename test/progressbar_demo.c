@@ -59,11 +59,21 @@ int main(void)
     progressbar_finish(longlabel);
 
     progressbar *fast = progressbar_new("Fast",100);
-    for(int i=0;i<100;i++) {
+    for(int i=0;i<max/3;i++) {
         usleep(SLEEP_MS);
         progressbar_inc(fast);
     }
     progressbar_finish(fast);
+
+    progressbar *custom = progressbar_new("Custom",max);
+    custom->format[0] = '[';
+    custom->format[1] = '-';
+    custom->format[2] = ']';
+    for(int i=0;i<max;i++) {
+      usleep(SLEEP_MS);
+      progressbar_inc(custom);
+    }
+    progressbar_finish(custom);
 
     // Status bar
     statusbar *status = statusbar_new("Indeterminate");
