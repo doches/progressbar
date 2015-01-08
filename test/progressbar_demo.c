@@ -58,8 +58,8 @@ int main(void)
     }
     progressbar_finish(longlabel);
 
-    progressbar *fast = progressbar_new("Fast",100);
-    for(int i=0;i<max/3;i++) {
+    progressbar *fast = progressbar_new("Fast",20);
+    for(int i=0;i<20;i++) {
         usleep(SLEEP_MS);
         progressbar_inc(fast);
     }
