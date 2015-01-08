@@ -23,9 +23,9 @@
 typedef struct _progressbar_t
 {
   /// maximum value
-  unsigned int max;
+  unsigned long max;
   /// current value
-  unsigned int value;
+  unsigned long value;
 
   /// maximum number of steps
   unsigned int steps;
@@ -48,7 +48,7 @@ typedef struct _progressbar_t
 } progressbar;
 
 /// Create a new progressbar with the specified label and # of steps
-progressbar *progressbar_new(char *label, unsigned int max);
+progressbar *progressbar_new(char *label, unsigned long max);
 
 /// Free an existing progress bar. Don't call this directly; call *progressbar_finish* instead.
 void progressbar_free(progressbar *bar);
@@ -57,7 +57,7 @@ void progressbar_free(progressbar *bar);
 void progressbar_inc(progressbar *bar);
 
 /// Set the current status on the given progressbar.
-void progressbar_update(progressbar *bar, unsigned int value);
+void progressbar_update(progressbar *bar, unsigned long value);
 
 /// Change the current label
 /// Does not update display or copy the label

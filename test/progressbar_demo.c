@@ -1,6 +1,6 @@
 #include "progressbar.h"
 #include "statusbar.h"
-#include "unistd.h"
+#include <unistd.h>
 
 /**
  * \file
