@@ -32,7 +32,7 @@ progressbar *progressbar_new_with_format(char *label, unsigned long max, const c
   new->step = 0;
   new->progress_str = malloc(sizeof(char)*(PROGRESSBAR_WIDTH+1));
   new->format = malloc(sizeof(char)*(strlen(format)+1));
-  strcpy(new->format, format);
+  strncpy(new->format, format, strlen(format));
   memset(new->progress_str,' ', PROGRESSBAR_WIDTH);
   new->progress_str[new->steps] = 0;
   new->last_printed = 0;

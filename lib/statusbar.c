@@ -11,14 +11,14 @@
 */
 #include "statusbar.h"
 
-statusbar *statusbar_new_with_format(const char *label,const char *format)
+statusbar *statusbar_new_with_format(const char *label, const char *format)
 {
   statusbar *new = malloc(sizeof(statusbar));
   new->label = label;
   new->start_time = time(0);
   new->format_length = strlen(format);
   new->format = malloc(sizeof(char)*(new->format_length+1));
-  strcpy(new->format,format);
+  strncpy(new->format, format, strlen(format));
   new->format_index = 0;
   new->last_printed = 0;
 
