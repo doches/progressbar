@@ -31,7 +31,7 @@ progressbar *progressbar_new_with_format(char *label, unsigned long max, const c
   new->start = time(NULL);
   new->step = 0;
   new->progress_str = malloc(sizeof(char)*(PROGRESSBAR_WIDTH+1));
-  new->format = malloc(sizeof(char)*4);
+  new->format = malloc(sizeof(char)*(strlen(format)+1));
   strcpy(new->format, format);
   memset(new->progress_str,' ', PROGRESSBAR_WIDTH);
   new->progress_str[new->steps] = 0;
@@ -157,7 +157,7 @@ void progressbar_draw(progressbar *bar,unsigned int timeleft)
 }
 
 /**
-* Finish a progressbar, indicating 100% completion, and free it. 
+* Finish a progressbar, indicating 100% completion, and free it.
 */
 void progressbar_finish(progressbar *bar)
 {
