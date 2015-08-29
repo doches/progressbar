@@ -17,6 +17,11 @@
 
 #define PROGRESSBAR_WIDTH 200
 
+/**
+* Create a new progress bar with the specified label, max number of steps, and format string.
+* Note that `format` must be exactly three characters long, e.g. "<->" to render a progress
+* bar like "<---------->".
+*/
 progressbar *progressbar_new_with_format(char *label, unsigned long max, const char *format)
 {
   progressbar *new = malloc(sizeof(progressbar));
@@ -38,6 +43,9 @@ progressbar *progressbar_new_with_format(char *label, unsigned long max, const c
   return new;
 }
 
+/**
+* Create a new progress bar with the specified label and max number of steps.
+*/
 progressbar *progressbar_new(char *label, unsigned long max)
 {
   return progressbar_new_with_format(label, max, "|=|");
@@ -74,6 +82,9 @@ void progressbar_update_label(progressbar *bar, char *label)
   bar->steps = newsteps;
 }
 
+/**
+* Delete an existing progress bar.
+*/
 void progressbar_free(progressbar *bar)
 {
   // We malloc'd a couple of strings, so let's be sure to free those...
@@ -85,6 +96,9 @@ void progressbar_free(progressbar *bar)
   return;
 }
 
+/**
+* Increment an existing progressbar by `value` steps.
+*/
 void progressbar_update(progressbar *bar, unsigned long value)
 {
   bar->value = value;
@@ -116,11 +130,18 @@ void progressbar_update(progressbar *bar, unsigned long value)
   }
 }
 
+/**
+* Increment an existing progressbar by a single step.
+*/
 void progressbar_inc(progressbar *bar)
 {
   progressbar_update(bar, bar->value+1);
 }
 
+/**
+* Render a progress bar. You probably don't need to call this directly; it's
+* automatically called when you update a progressbar and a re-render is required.
+*/
 void progressbar_draw(progressbar *bar,unsigned int timeleft)
 {
   // Convert the time to display into HHH:MM:SS
@@ -135,6 +156,9 @@ void progressbar_draw(progressbar *bar,unsigned int timeleft)
   return;
 }
 
+/**
+* Finish a progressbar, indicating 100% completion, and free it. 
+*/
 void progressbar_finish(progressbar *bar)
 {
   // Draw one more time, with the actual time to completion instead of a useless
