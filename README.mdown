@@ -6,7 +6,7 @@ gem, whose api and behaviour it imitates.
 
 ## Ok, what the hell is a C-class, and how do I use one?
 
-progressbar is implemented in pure C99, but using a vaguely object-oriented convention. 
+progressbar is implemented in pure C99, but using a vaguely object-oriented convention.
 
 Example usage:
 
@@ -38,3 +38,14 @@ how far along we've gotten. Enter progressbar!
 
 Of course, if you're so inclined. progressbar is licensed under a simplified BSD license,
 so feel free to take it and run with it. Details can be found in the `LICENSE` file.
+
+
+## Troubleshooting
+
+1. termcap.h not found:
+
+    gcc -c -std=c99 -Iinclude lib/progressbar.c
+    lib/progressbar.c:13:21: fatal error: termcap.h: No such file or directory
+    compilation terminated.
+
+Install ncurses development libraries.
