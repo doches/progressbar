@@ -39,13 +39,10 @@ how far along we've gotten. Enter progressbar!
 Of course, if you're so inclined. progressbar is licensed under a simplified BSD license,
 so feel free to take it and run with it. Details can be found in the `LICENSE` file.
 
+## Why doesn't it compile?
 
-## Troubleshooting
-
-1. termcap.h not found:
+If progressbar fails to build because `termcap.h` isn't found, you're probably missing the ncurses dev libraries.
 
     gcc -c -std=c99 -Iinclude lib/progressbar.c
     lib/progressbar.c:13:21: fatal error: termcap.h: No such file or directory
     compilation terminated.
-
-Install ncurses development libraries.
