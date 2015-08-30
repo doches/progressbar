@@ -6,7 +6,7 @@ gem, whose api and behaviour it imitates.
 
 ## Ok, what the hell is a C-class, and how do I use one?
 
-progressbar is implemented in pure C99, but using a vaguely object-oriented convention. 
+progressbar is implemented in pure C99, but using a vaguely object-oriented convention.
 
 Example usage:
 

@@ -17,8 +17,8 @@ statusbar *statusbar_new_with_format(const char *label, const char *format)
   new->label = label;
   new->start_time = time(0);
   new->format_length = strlen(format);
-  new->format = malloc(sizeof(char)*(new->format_length+1));
-  strncpy(new->format, format, strlen(format));
+  new->format = malloc( sizeof(char) * (new->format_length + 1) );
+  strncpy(new->format, format, new->format_length);
   new->format_index = 0;
   new->last_printed = 0;
 
