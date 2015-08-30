@@ -10,7 +10,7 @@
 * on the command line (to stderr).
 */
 
-#include <termcap.h>
+#include <termcap.h>  /* tgetent, tgetnum */
 #include <assert.h>
 #include <limits.h>
 #include "progressbar.h"
@@ -73,12 +73,15 @@ void progressbar_update_label(progressbar *bar, char *label)
   columns -= 2;
 
   newsteps = columns - (strlen(label) + 17);
-  if (newsteps < 0)
+  if (newsteps < 0) {
     newsteps = 0;
-  if (newsteps > PROGRESSBAR_WIDTH - 1)
+  }
+  if (newsteps > PROGRESSBAR_WIDTH - 1) {
     newsteps = PROGRESSBAR_WIDTH - 1;
-  if (newsteps != bar->steps && bar->step >= bar->steps)
+  }
+  if (newsteps != bar->steps && bar->step >= bar->steps) {
     bar->step = 0;
+  }
   bar->steps = newsteps;
 }
 
@@ -108,10 +111,10 @@ void progressbar_update(progressbar *bar, unsigned long value)
   // has changed.
   if(1 || current_step != bar->step) {
     // Fill the bar to the current step...
-    for(int i=0;i<current_step;i++) {
+    for(int i=0; i<current_step; i++) {
       bar->progress_str[i] = bar->format[1];
     }
-    for(int i=current_step; i < bar->steps;i++) {
+    for(int i=current_step; i < bar->steps; i++) {
       bar->progress_str[i] = ' ';
     }
     bar->progress_str[bar->steps] = 0;
@@ -122,11 +125,12 @@ void progressbar_update(progressbar *bar, unsigned long value)
     // remaining * the average time per increment thus far.
     double offset = difftime(time(NULL), bar->start);
     unsigned int estimate;
-    if (bar->value > 0 && offset > 0)
+    if (bar->value > 0 && offset > 0) {
        estimate = (offset/(long double)bar->value) * (bar->max - bar->value);
-    else
+    } else {
       estimate = 0;
-    progressbar_draw(bar,estimate);
+    }
+    progressbar_draw(bar, estimate);
   }
 }
 
