@@ -55,11 +55,17 @@ void statusbar_draw(statusbar *bar)
 {
   // Erase the last draw. If anything else has been printed to stderr,
   // things are going to look mighty interesting...
-  for(int i=0;i<bar->last_printed;i++) {
+  for(int i=0; i < bar->last_printed; i++) {
     fprintf(stderr,"\b");
   }
 
-  fprintf(stderr,"%s: %c%n",bar->label,bar->format[bar->format_index],&(bar->last_printed));
+  fprintf(
+        stderr,
+        "%s: %c%n",
+        bar->label,
+        bar->format[bar->format_index],
+        &(bar->last_printed)
+    );
 
   return;
 }
@@ -77,7 +83,7 @@ void statusbar_finish(statusbar *bar)
   unsigned int s = offset;
 
   // Erase the last draw
-  for(int i=0;i<bar->last_printed;i++) {
+  for(int i=0; i < bar->last_printed; i++) {
     fprintf(stderr,"\b");
   }
 

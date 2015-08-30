@@ -146,17 +146,26 @@ void progressbar_inc(progressbar *bar)
 * Render a progress bar. You probably don't need to call this directly; it's
 * automatically called when you update a progressbar and a re-render is required.
 */
-void progressbar_draw(progressbar *bar,unsigned int timeleft)
+void progressbar_draw(progressbar *bar, unsigned int timeleft)
 {
   // Convert the time to display into HHH:MM:SS
-  unsigned int h = timeleft/3600;
+  unsigned int h = timeleft / 3600;
   timeleft -= h*3600;
-  unsigned int m = timeleft/60;
+  unsigned int m = timeleft / 60;
   timeleft -= m*60;
   unsigned int s = timeleft;
   // ...and display!
-  bar->last_printed = fprintf(stderr,"%s %c%s%c ETA:%2dh%02dm%02ds\r",
-    bar->label,bar->format[0],bar->progress_str,bar->format[2],h,m,s);
+  bar->last_printed = fprintf(
+            stderr,
+            "%s %c%s%c ETA:%2dh%02dm%02ds\r",
+            bar->label,
+            bar->format[0],
+            bar->progress_str,
+            bar->format[2],
+            h,
+            m,
+            s
+        );
   return;
 }
 
@@ -172,10 +181,10 @@ void progressbar_finish(progressbar *bar)
   for(int i=0;i<bar->steps;i++) {
     bar->progress_str[i] = bar->format[1];
   }
-  progressbar_draw(bar,offset);
+  progressbar_draw(bar, offset);
 
   // Print a newline, so that future outputs to stderr look prettier
-  fprintf(stderr,"\n");
+  fprintf(stderr, "\n");
 
   // We've finished with this progressbar, so go ahead and free it.
   progressbar_free(bar);
