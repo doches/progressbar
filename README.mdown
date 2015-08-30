@@ -43,6 +43,7 @@ so feel free to take it and run with it. Details can be found in the `LICENSE` f
 ## Troubleshooting
 
 1. termcap.h not found:
+
     gcc -c -std=c99 -Iinclude lib/progressbar.c
     lib/progressbar.c:13:21: fatal error: termcap.h: No such file or directory
     compilation terminated.
