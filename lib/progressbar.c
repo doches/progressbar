@@ -25,11 +25,11 @@
 progressbar *progressbar_new_with_format(char *label, unsigned long max, const char *format)
 {
   progressbar *new = malloc(sizeof(progressbar));
-  progressbar_update_label(new, label);
   new->max = max;
   new->value = 0;
   new->start = time(NULL);
   new->step = 0;
+  new->steps = 0;
   new->progress_str = calloc(PROGRESSBAR_WIDTH+1, sizeof(char));
   new->format = calloc(strlen(format)+1, sizeof(char));
   strncpy(new->format, format, strlen(format));
@@ -38,6 +38,7 @@ progressbar *progressbar_new_with_format(char *label, unsigned long max, const c
   new->last_printed = 0;
   new->termtype = getenv("TERM");
 
+  progressbar_update_label(new, label);
   progressbar_draw(new, 0);
 
   return new;
