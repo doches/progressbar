@@ -35,7 +35,7 @@
  #include "statusbar.h"
  #include <unistd.h>
 
-#define SLEEP_MS 100000
+#define SLEEP_US 100000
 
 /**
  *Example for statusbar and progressbar usage
@@ -45,51 +45,51 @@ int main(void)
     // Progress bar
     int max = 60;
     progressbar *smooth = progressbar_new("Smooth",max);
-    for(int i=0;i<max;i++) {
-        usleep(SLEEP_MS);
+    for(int i=0; i < max; i++) {
+        usleep(SLEEP_US);
         progressbar_inc(smooth);
     }
     progressbar_finish(smooth);
 
     progressbar *longlabel = progressbar_new("Three Second Task with a long label",3);
-    for(int i=0;i<3;i++) {
+    for(int i=0; i < 3; i++) {
         progressbar_inc(longlabel);
         sleep(1);
     }
     progressbar_finish(longlabel);
 
     progressbar *fast = progressbar_new("Fast",20);
-    for(int i=0;i<20;i++) {
-        usleep(SLEEP_MS);
+    for(int i=0; i < 20; i++) {
+        usleep(SLEEP_US);
         progressbar_inc(fast);
     }
     progressbar_finish(fast);
 
     progressbar *custom = progressbar_new_with_format("Custom",max,"<.>");
-    for(int i=0;i<max;i++) {
-      usleep(SLEEP_MS);
+    for(int i=0; i < max; i++) {
+      usleep(SLEEP_US);
       progressbar_inc(custom);
     }
     progressbar_finish(custom);
 
     // Status bar
     statusbar *status = statusbar_new("Indeterminate");
-    for (int i=0; i<30; i++) {
-        usleep(SLEEP_MS);
+    for(int i=0; i < 30; i++) {
+        usleep(SLEEP_US);
         statusbar_inc(status);
     }
     statusbar_finish(status);
 
     statusbar *longStatus = statusbar_new("Status bar with a really long label");
-    for (int i=0; i<10; i++) {
-        usleep(SLEEP_MS);
+    for(int i=0; i < 10; i++) {
+        usleep(SLEEP_US);
         statusbar_inc(longStatus);
     }
     statusbar_finish(longStatus);
 
     statusbar *customStatus = statusbar_new_with_format("Custom","(|)|");
-    for (int i=0; i<30; i++) {
-        usleep(SLEEP_MS);
+    for(int i=0; i < 30; i++) {
+        usleep(SLEEP_US);
         statusbar_inc(customStatus);
     }
     statusbar_finish(customStatus);

@@ -4,3 +4,4 @@ doc/
 *.o
 *.so
 *.a
+*.swp
