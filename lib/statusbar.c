@@ -89,13 +89,13 @@ void statusbar_finish(statusbar *bar)
 
   // Calculate number of spaces for right-justified time to completion
   fprintf(stderr,"%s: %3d:%02d:%02d%n",bar->label,h,m,s,&(bar->last_printed));
-  for(int i=0;i<bar->last_printed;i++) {
+  for(int i=0; i < bar->last_printed; i++) {
     fprintf(stderr,"\b");
   }
 
   // Print right-justified
   fprintf(stderr,"%s: ",bar->label);
-  for (int i=0; i<80-(bar->last_printed); i++) {
+  for(int i=0; i < (80 - (bar->last_printed)); i++) {
     fprintf(stderr," ");
   }
   fprintf(stderr,"%3d:%02d:%02d\n",h,m,s);

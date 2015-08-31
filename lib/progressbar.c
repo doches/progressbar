@@ -25,11 +25,11 @@
 progressbar *progressbar_new_with_format(char *label, unsigned long max, const char *format)
 {
   progressbar *new = malloc(sizeof(progressbar));
-  progressbar_update_label(new, label);
   new->max = max;
   new->value = 0;
   new->start = time(NULL);
   new->step = 0;
+  new->steps = 0;
   new->progress_str = calloc(PROGRESSBAR_WIDTH+1, sizeof(char));
   new->format = calloc(strlen(format)+1, sizeof(char));
   strncpy(new->format, format, strlen(format));
@@ -38,6 +38,7 @@ progressbar *progressbar_new_with_format(char *label, unsigned long max, const c
   new->last_printed = 0;
   new->termtype = getenv("TERM");
 
+  progressbar_update_label(new, label);
   progressbar_draw(new, 0);
 
   return new;
@@ -111,7 +112,7 @@ void progressbar_update(progressbar *bar, unsigned long value)
   // has changed.
   if(1 || current_step != bar->step) {
     // Fill the bar to the current step...
-    for(unsigned int i=0; i<current_step; i++) {
+    for(unsigned int i=0; i < current_step; i++) {
       bar->progress_str[i] = bar->format[1];
     }
     for(unsigned int i=current_step; i < bar->steps; i++) {
@@ -178,7 +179,7 @@ void progressbar_finish(progressbar *bar)
   // 00:00:00 remaining estimate.
   unsigned int offset = time(NULL) - (bar->start);
   // Make sure we fill the progressbar too, so things look complete.
-  for(unsigned int i=0;i<bar->steps;i++) {
+  for(unsigned int i=0; i < bar->steps; i++) {
     bar->progress_str[i] = bar->format[1];
   }
   progressbar_draw(bar, offset);
