@@ -80,7 +80,7 @@ void progressbar_update_label(progressbar *bar, char *label)
   if (newsteps > PROGRESSBAR_WIDTH - 1) {
     newsteps = PROGRESSBAR_WIDTH - 1;
   }
-  if (newsteps != bar->steps && bar->step >= bar->steps) {
+  if (newsteps != (int)bar->steps && bar->step >= bar->steps) {
     bar->step = 0;
   }
   bar->steps = newsteps;

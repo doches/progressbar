@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -std=c99 -Iinclude
+CFLAGS = -std=c99 -Iinclude -Wimplicit-function-declaration -Wall -Wextra -pedantic
 EXECUTABLES = demo
 
 all: demo libprogressbar.so libprogressbar.a
