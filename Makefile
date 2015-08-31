@@ -1,14 +1,17 @@
 CC = gcc
-CFLAGS = -std=c99 -Iinclude -Wimplicit-function-declaration -Wall -Wextra -pedantic
+SHARED_CFLAGS = -Iinclude -Wimplicit-function-declaration -Wall -Wextra -pedantic
+CFLAGS = -std=c99 $(SHARED_CFLAGS)
+# The demo program isn't pure C99, because it uses usleep(). Hence the SHARED_CFLAGS nonsense.
+DEMO_CFLAGS = -std=gnu99 $(SHARED_CFLAGS)
 EXECUTABLES = demo
 
 all: demo libprogressbar.so libprogressbar.a
 
 demo: progressbar.o demo.o statusbar.o
-	$(CC) $(CFLAGS) progressbar.o statusbar.o progressbar_demo.o -lncurses -o demo
+	$(CC) $(DEMO_CFLAGS) progressbar.o statusbar.o progressbar_demo.o -lncurses -o demo
 
 demo.o:
-	$(CC) -c $(CFLAGS) test/progressbar_demo.c
+	$(CC) -c $(DEMO_CFLAGS) test/progressbar_demo.c
 
 progressbar.o: include/progressbar.h lib/progressbar.c
 	$(CC) -c $(CFLAGS) lib/progressbar.c
