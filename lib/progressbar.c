@@ -111,7 +111,7 @@ void progressbar_update(progressbar *bar, unsigned long value)
   // has changed.
   if(1 || current_step != bar->step) {
     // Fill the bar to the current step...
-    for(int i=0; i<current_step; i++) {
+    for(int i=0; i < current_step; i++) {
       bar->progress_str[i] = bar->format[1];
     }
     for(int i=current_step; i < bar->steps; i++) {
@@ -178,7 +178,7 @@ void progressbar_finish(progressbar *bar)
   // 00:00:00 remaining estimate.
   unsigned int offset = time(NULL) - (bar->start);
   // Make sure we fill the progressbar too, so things look complete.
-  for(int i=0;i<bar->steps;i++) {
+  for(int i=0; i < bar->steps; i++) {
     bar->progress_str[i] = bar->format[1];
   }
   progressbar_draw(bar, offset);

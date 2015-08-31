@@ -11,7 +11,7 @@ progressbar is implemented in pure C99, but using a vaguely object-oriented conv
 Example usage:
 
     progressbar *progress = progressbar_new("Loading",100);
-    for(int i=0;i<100;i++)
+    for(int i=0; i < 100; i++)
     {
       // Do some stuff
       progressbar_inc(progress);
