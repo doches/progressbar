@@ -55,14 +55,14 @@ void progressbar_update_label(progressbar *bar, char *label)
 {
   bar->label = label;
   int newsteps;
-  int columns = 80; // by default 80
+  unsigned int columns = 80; // by default 80
   static char termbuf[2048];
   if (!(tgetent(termbuf, bar->termtype) < 0)) {
     // otherwise size of terminal if it works
     columns = tgetnum("co") - 2;
   }
   // make sure newsteps is positive
-  int maxstrlen = columns - 17;
+  unsigned int maxstrlen = columns - 17;
   if (maxstrlen - 10 > 10 && strlen(label) > maxstrlen - 10) {
     label[maxstrlen - 10] = 0;
   }
@@ -111,10 +111,10 @@ void progressbar_update(progressbar *bar, unsigned long value)
   // has changed.
   if(1 || current_step != bar->step) {
     // Fill the bar to the current step...
-    for(int i=0; i<current_step; i++) {
+    for(unsigned int i=0; i<current_step; i++) {
       bar->progress_str[i] = bar->format[1];
     }
-    for(int i=current_step; i < bar->steps; i++) {
+    for(unsigned int i=current_step; i < bar->steps; i++) {
       bar->progress_str[i] = ' ';
     }
     bar->progress_str[bar->steps] = 0;
@@ -178,7 +178,7 @@ void progressbar_finish(progressbar *bar)
   // 00:00:00 remaining estimate.
   unsigned int offset = time(NULL) - (bar->start);
   // Make sure we fill the progressbar too, so things look complete.
-  for(int i=0;i<bar->steps;i++) {
+  for(unsigned int i=0;i<bar->steps;i++) {
     bar->progress_str[i] = bar->format[1];
   }
   progressbar_draw(bar, offset);
