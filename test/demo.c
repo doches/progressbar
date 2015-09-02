@@ -58,6 +58,16 @@ int main(void)
     }
     progressbar_finish(longlabel);
 
+    progressbar *updatelabel = progressbar_new("Updating label 0/5",5);
+    char label[32];
+    for(int i=0; i < 5; i++) {
+        sprintf(label, "Updating label %ld / %ld", updatelabel->value+1, updatelabel->max);
+        progressbar_update_label(updatelabel, label);
+        progressbar_inc(updatelabel);
+        sleep(1);
+    }
+    progressbar_finish(updatelabel);
+
     progressbar *fast = progressbar_new("Fast",20);
     for(int i=0; i < 20; i++) {
         usleep(SLEEP_US);
