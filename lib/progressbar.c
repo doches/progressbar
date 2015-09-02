@@ -31,8 +31,10 @@ progressbar *progressbar_new_with_format(char *label, unsigned long max, const c
   new->step = 0;
   new->steps = 0;
   new->progress_str = calloc(PROGRESSBAR_WIDTH+1, sizeof(char));
-  new->format = calloc(strlen(format)+1, sizeof(char));
-  strncpy(new->format, format, strlen(format));
+  assert(3 == strlen(format) && "format must be 3 characters in length");
+  new->format.begin = format[0];
+  new->format.fill = format[1];
+  new->format.end = format[2];
   memset(new->progress_str,' ', PROGRESSBAR_WIDTH);
   new->progress_str[new->steps] = 0;
   new->last_printed = 0;
@@ -93,7 +95,6 @@ void progressbar_free(progressbar *bar)
 {
   // We malloc'd a couple of strings, so let's be sure to free those...
   free(bar->progress_str);
-  free(bar->format);
   // ...before we free the struct itself.
   free(bar);
 
@@ -113,7 +114,7 @@ void progressbar_update(progressbar *bar, unsigned long value)
   if(1 || current_step != bar->step) {
     // Fill the bar to the current step...
     for(unsigned int i=0; i < current_step; i++) {
-      bar->progress_str[i] = bar->format[1];
+      bar->progress_str[i] = bar->format.fill;
     }
     for(unsigned int i=current_step; i < bar->steps; i++) {
       bar->progress_str[i] = ' ';
@@ -160,9 +161,9 @@ void progressbar_draw(progressbar *bar, unsigned int timeleft)
             stderr,
             "%s %c%s%c ETA:%2dh%02dm%02ds\r",
             bar->label,
-            bar->format[0],
+            bar->format.begin,
             bar->progress_str,
-            bar->format[2],
+            bar->format.end,
             h,
             m,
             s
@@ -179,9 +180,7 @@ void progressbar_finish(progressbar *bar)
   // 00:00:00 remaining estimate.
   unsigned int offset = time(NULL) - (bar->start);
   // Make sure we fill the progressbar too, so things look complete.
-  for(unsigned int i=0; i < bar->steps; i++) {
-    bar->progress_str[i] = bar->format[1];
-  }
+  memset(bar->progress_str, bar->format.fill, bar->steps);
   progressbar_draw(bar, offset);
 
   // Print a newline, so that future outputs to stderr look prettier
