@@ -1,31 +1,38 @@
-CC = gcc
-SHARED_CFLAGS = -Iinclude -Wimplicit-function-declaration -Wall -Wextra -pedantic
-CFLAGS = -std=c99 $(SHARED_CFLAGS)
-# The demo program isn't pure C99, because it uses usleep(). Hence the SHARED_CFLAGS nonsense.
-DEMO_CFLAGS = -std=gnu99 $(SHARED_CFLAGS)
-EXECUTABLES = demo
+EXECUTABLE = demo
+SHARED_LIB = libprogressbar.so
+STATIC_LIB = libprogressbar.a
 
-all: demo libprogressbar.so libprogressbar.a
+SRC=lib
+INCLUDE=include
+TEST=test
+CFLAGS += -std=c99 -I$(INCLUDE) -Wimplicit-function-declaration -Wall -Wextra -pedantic
+CFLAGS_DEBUG = -g -O0
+LDLIBS = -lncurses
 
-demo: progressbar.o demo.o statusbar.o
-	$(CC) $(DEMO_CFLAGS) progressbar.o statusbar.o progressbar_demo.o -lncurses -o demo
+all: $(EXECUTABLE) $(SHARED_LIB) $(STATIC_LIB)
 
-demo.o:
-	$(CC) -c $(DEMO_CFLAGS) test/progressbar_demo.c
+debug: CFLAGS += $(CFLAGS_DEBUG)
+debug: $(EXECUTABLE)
 
-progressbar.o: include/progressbar.h lib/progressbar.c
-	$(CC) -c $(CFLAGS) lib/progressbar.c
+doc: include/progressbar.h include/statusbar.h
+	mkdir -p doc
+	doxygen
 
-libprogressbar.so: include/progressbar.h lib/progressbar.c
-	$(CC) -fPIC -shared -o $@ -c $(CFLAGS) lib/progressbar.c
+$(EXECUTABLE): $(EXECUTABLE).o progressbar.o statusbar.o
 
-libprogressbar.a: progressbar.o
-	ar rs libprogressbar.a progressbar.o
+libprogressbar.so: $(INCLUDE)/progressbar.h $(SRC)/progressbar.c
+	$(CC) -fPIC -shared -o $@ -c $(CFLAGS) $(CPPFLAGS) $(SRC)/progressbar.c
 
-statusbar.o: include/statusbar.h lib/statusbar.c
-	$(CC) -c $(CFLAGS) lib/statusbar.c
+libprogressbar.a: libprogressbar.a(progressbar.o)
+
+%.o: $(SRC)/%.c $(INCLUDE)/%.h
+	$(CC) -c $(CFLAGS) $(CPPFLAGS) $< -o $@
+
+demo.o: CFLAGS += -std=gnu99 # Demo uses usleep which requires POSIX or BSD source
+demo.o: $(TEST)/demo.c
+	$(CC) -c $(CFLAGS) $(CPPFLAGS) $< -o demo.o
 
 .PHONY: clean
-
 clean:
-	-rm -f *.o libprogressbar.so libprogressbar.a $(EXECUTABLES)
+	rm -f *.o $(EXECUTABLE) $(SHARED_LIB) $(STATIC_LIB)
+	rm -rf doc
