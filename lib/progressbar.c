@@ -30,14 +30,10 @@ progressbar *progressbar_new_with_format(char *label, unsigned long max, const c
   new->start = time(NULL);
   new->step = 0;
   new->steps = 0;
-  new->progress_str = calloc(PROGRESSBAR_WIDTH+1, sizeof(char));
   assert(3 == strlen(format) && "format must be 3 characters in length");
   new->format.begin = format[0];
   new->format.fill = format[1];
   new->format.end = format[2];
-  memset(new->progress_str,' ', PROGRESSBAR_WIDTH);
-  new->progress_str[new->steps] = 0;
-  new->last_printed = 0;
   new->termtype = getenv("TERM");
 
   progressbar_update_label(new, label);
@@ -93,12 +89,7 @@ void progressbar_update_label(progressbar *bar, char *label)
 */
 void progressbar_free(progressbar *bar)
 {
-  // We malloc'd a couple of strings, so let's be sure to free those...
-  free(bar->progress_str);
-  // ...before we free the struct itself.
   free(bar);
-
-  return;
 }
 
 /**
@@ -112,14 +103,6 @@ void progressbar_update(progressbar *bar, unsigned long value)
   // Only redraw the progressbar if the visual progress display (the current 'step')
   // has changed.
   if(1 || current_step != bar->step) {
-    // Fill the bar to the current step...
-    for(unsigned int i=0; i < current_step; i++) {
-      bar->progress_str[i] = bar->format.fill;
-    }
-    for(unsigned int i=current_step; i < bar->steps; i++) {
-      bar->progress_str[i] = ' ';
-    }
-    bar->progress_str[bar->steps] = 0;
     bar->step = current_step;
 
     // Draw using a rough estimated time remaining.
@@ -144,12 +127,26 @@ void progressbar_inc(progressbar *bar)
   progressbar_update(bar, bar->value+1);
 }
 
+static void fill(char* buffer, char fill, unsigned current_step, unsigned max_steps)
+{
+    // Fill the bar to the current step...
+    for(unsigned int i=0; i < current_step; i++) {
+      buffer[i] = fill;
+    }
+    for(unsigned int i=current_step; i < max_steps; i++) {
+      buffer[i] = ' ';
+    }
+    buffer[max_steps] = 0;
+}
+
 /**
 * Render a progress bar. You probably don't need to call this directly; it's
 * automatically called when you update a progressbar and a re-render is required.
 */
-void progressbar_draw(progressbar *bar, unsigned int timeleft)
+void progressbar_draw(const progressbar *bar, unsigned int timeleft)
 {
+  char buffer[PROGRESSBAR_WIDTH+1];
+  fill(buffer, bar->format.fill, bar->step, bar->steps);
   // Convert the time to display into HHH:MM:SS
   unsigned int h = timeleft / 3600;
   timeleft -= h*3600;
@@ -157,18 +154,15 @@ void progressbar_draw(progressbar *bar, unsigned int timeleft)
   timeleft -= m*60;
   unsigned int s = timeleft;
   // ...and display!
-  bar->last_printed = fprintf(
-            stderr,
-            "%s %c%s%c ETA:%2dh%02dm%02ds\r",
-            bar->label,
-            bar->format.begin,
-            bar->progress_str,
-            bar->format.end,
-            h,
-            m,
-            s
-        );
-  return;
+  fprintf(stderr,
+          "%s %c%s%c ETA:%2dh%02dm%02ds\r",
+          bar->label,
+          bar->format.begin,
+          buffer,
+          bar->format.end,
+          h,
+          m,
+          s);
 }
 
 /**
@@ -180,7 +174,6 @@ void progressbar_finish(progressbar *bar)
   // 00:00:00 remaining estimate.
   unsigned int offset = time(NULL) - (bar->start);
   // Make sure we fill the progressbar too, so things look complete.
-  memset(bar->progress_str, bar->format.fill, bar->steps);
   progressbar_draw(bar, offset);
 
   // Print a newline, so that future outputs to stderr look prettier

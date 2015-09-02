@@ -37,8 +37,6 @@ typedef struct _progressbar_t
   time_t start;
   /// label
   const char *label;
-  /// the progress bar stored as text
-  char *progress_str;
   /// characters for the beginning, filling and end of the
   /// progressbar. E.g. |###    | has |#|
   struct {
@@ -47,8 +45,6 @@ typedef struct _progressbar_t
     char end;
   } format;
 
-  /// number of characters printed on last output
-  int last_printed;
   /// terminal information
   char * termtype;
 } progressbar;
@@ -81,6 +77,6 @@ void progressbar_finish(progressbar *bar);
 
 /// Draw a progressbar to the screen with the specified time display. Don't call this directly,
 /// as it's called internally by *progressbar_inc*.
-void progressbar_draw(progressbar *bar, unsigned int time);
+void progressbar_draw(const progressbar *bar, unsigned int time);
 
 #endif
