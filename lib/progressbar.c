@@ -13,6 +13,7 @@
 #include <termcap.h>  /* tgetent, tgetnum */
 #include <assert.h>
 #include <limits.h>
+#include <string.h>
 #include "progressbar.h"
 
 #define PROGRESSBAR_WIDTH 200
@@ -31,8 +32,7 @@ progressbar *progressbar_new_with_format(char *label, unsigned long max, const c
   new->step = 0;
   new->steps = 0;
   new->progress_str = calloc(PROGRESSBAR_WIDTH+1, sizeof(char));
-  new->format = calloc(strlen(format)+1, sizeof(char));
-  strncpy(new->format, format, strlen(format));
+  new->format = strdup(format);
   memset(new->progress_str,' ', PROGRESSBAR_WIDTH);
   new->progress_str[new->steps] = 0;
   new->last_printed = 0;
@@ -55,11 +55,8 @@ progressbar *progressbar_new(char *label, unsigned long max)
 
 void progressbar_update_label(progressbar *bar, char *label)
 {
-  if (bar->label) {
-    free(bar->label);
-  }
-  bar->label = calloc(strlen(label)+1, sizeof(char));
-  label = strncpy(bar->label, label, strlen(label));
+  free(bar->label);
+  bar->label = label = strdup(label);
 
   int newsteps;
   unsigned int columns = 80; // by default 80
