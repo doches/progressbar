@@ -38,6 +38,7 @@ progressbar *progressbar_new_with_format(char *label, unsigned long max, const c
   new->last_printed = 0;
   new->termtype = getenv("TERM");
 
+  new->label = NULL;
   progressbar_update_label(new, label);
   progressbar_draw(new, 0);
 
@@ -54,7 +55,12 @@ progressbar *progressbar_new(char *label, unsigned long max)
 
 void progressbar_update_label(progressbar *bar, char *label)
 {
-  bar->label = label;
+  if (bar->label) {
+    free(bar->label);
+  }
+  bar->label = calloc(strlen(label)+1, sizeof(char));
+  label = strncpy(bar->label, label, strlen(label));
+
   int newsteps;
   unsigned int columns = 80; // by default 80
   static char termbuf[2048];
@@ -94,6 +100,7 @@ void progressbar_free(progressbar *bar)
   // We malloc'd a couple of strings, so let's be sure to free those...
   free(bar->progress_str);
   free(bar->format);
+  free(bar->label);
   // ...before we free the struct itself.
   free(bar);
 

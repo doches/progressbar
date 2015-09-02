@@ -36,7 +36,7 @@ typedef struct _progressbar_t
   /// time progressbar was started
   time_t start;
   /// label
-  const char *label;
+  char *label;
   /// the progress bar stored as text
   char *progress_str;
   /// characters for the beginning, filling and end of the
