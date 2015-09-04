@@ -1,0 +1,9 @@
+{
+  "name": "progressbar",
+  "version": "0.1.0",
+  "repo": "doches/progressbar",
+  "description": "A C library for displaying command-line progress bars",
+  "keywords": ["terminal", "tty", "progress", "progressbar", "statusbar", "console"],
+  "license": "BSD",
+  "src": ["include/progressbar.h", "include/progressbar.c", "include/statusbar.h", "include/statusbar.c"]
+}
