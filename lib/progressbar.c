@@ -41,14 +41,14 @@ static void progressbar_draw(const progressbar *bar);
 /**
 * Create a new progress bar with the specified label, max number of steps, and format string.
 * Note that `format` must be exactly three characters long, e.g. "<->" to render a progress
-* bar like "<---------->".
-* This function returns NULL if system runs out of memory.
+* bar like "<---------->". Returns NULL if there isn't enough memory to allocate a progressbar
 */
 progressbar *progressbar_new_with_format(const char *label, unsigned long max, const char *format)
 {
   progressbar *new = malloc(sizeof(progressbar));
-  if(new == NULL)
+  if(new == NULL) {
     return NULL;
+  }
     
   new->max = max;
   new->value = 0;
