@@ -103,7 +103,8 @@ void progressbar_inc(progressbar *bar)
 }
 
 static void progressbar_write_char(FILE *file, const int ch, const size_t times) {
-  for (size_t i = 0; i < times; ++i) {
+  size_t i;
+  for (i = 0; i < times; ++i) {
     fputc(ch, file);
   }
 }
