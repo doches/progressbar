@@ -18,6 +18,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * Progressbar data structure (do not modify or create directly)
  */
@@ -84,5 +88,9 @@ void progressbar_update_label(progressbar *bar, const char *label);
 /// Finalize (and free!) a progressbar. Call this when you're done, or if you break out
 /// partway through.
 void progressbar_finish(progressbar *bar);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

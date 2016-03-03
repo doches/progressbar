@@ -18,6 +18,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * Statusbar data structure (do not modify or create directly)
  */
@@ -49,5 +53,9 @@ void statusbar_finish(statusbar *bar);
 /// Draw a statusbar to the screen. Don't call this directly,
 /// as it's called internally by *statusbar_inc*.
 void statusbar_draw(statusbar *bar);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
