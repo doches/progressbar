@@ -5,7 +5,7 @@
  * \section Progressbar
  * Creating and starting the progress bar: \ref progressbar_new
  *
- * Updating the current progress: \ref progressbar_update, \ref progressbar_inc, \ref progressbar_update_label
+ * Updating the current progress: \ref progressbar_update, \ref progressbar_inc, \ref progressbar_dec, \ref progressbar_update_label
  *
  * Finishing the progressbar (on success or failure): \ref progressbar_finish
  *
@@ -64,6 +64,17 @@ int main(void)
         progressbar_inc(fast);
     }
     progressbar_finish(fast);
+
+    progressbar *fast_dec = progressbar_new("Fast with decrement",10);
+    for(int i=0; i < 10; i++) {
+        usleep(SLEEP_US);
+        progressbar_inc(fast_dec);
+    }
+    for(int i=0; i < 10; i++) {
+        usleep(SLEEP_US);
+        progressbar_dec(fast_dec);
+    }
+    progressbar_finish(fast_dec);
 
     progressbar *custom = progressbar_new_with_format("Custom",max,"<.>");
     for(int i=0; i < max; i++) {
