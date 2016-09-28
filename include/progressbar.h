@@ -77,6 +77,9 @@ void progressbar_free(progressbar *bar);
 /// Increment the given progressbar. Don't increment past the initialized # of steps, though.
 void progressbar_inc(progressbar *bar);
 
+/// Decrement the given progressbar.
+void progressbar_dec(progressbar *bar);
+
 /// Set the current status on the given progressbar.
 void progressbar_update(progressbar *bar, unsigned long value);
 

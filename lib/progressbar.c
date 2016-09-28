@@ -102,6 +102,15 @@ void progressbar_inc(progressbar *bar)
   progressbar_update(bar, bar->value+1);
 }
 
+/**
+* Decrement an existing progressbar by a single step.
+*/
+void progressbar_dec(progressbar *bar)
+{
+  progressbar_update(bar, bar->value-1);
+}
+
+
 static void progressbar_write_char(FILE *file, const int ch, const size_t times) {
   size_t i;
   for (i = 0; i < times; ++i) {
