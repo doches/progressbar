@@ -1,9 +1,12 @@
 project(ProgressBar)
 
-include_directories(include)
+cmake_minimum_required(VERSION 3.7)
 
-add_library(progressbar lib/progressbar.c)
-add_library(statusbar lib/statusbar.c)
+set(CURSES_NEED_NCURSES TRUE)
+find_package(Curses)
+include_directories(${CURSES_INCLUDE_DIRS})
 
-add_executable(demo test/demo.c)
-target_link_libraries(demo progressbar statusbar ncurses)
+include_directories(include/progressbar)
+
+add_subdirectory(lib)
+add_subdirectory(test)
