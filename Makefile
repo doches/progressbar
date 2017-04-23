@@ -3,7 +3,7 @@ SHARED_LIB = libprogressbar.so
 STATIC_LIB = libprogressbar.a
 
 SRC=lib
-INCLUDE=include
+INCLUDE=include/progressbar
 TEST=test
 CFLAGS += -std=c99 -I$(INCLUDE) -Wimplicit-function-declaration -Wall -Wextra -pedantic
 CFLAGS_DEBUG = -g -O0
@@ -14,7 +14,7 @@ all: $(EXECUTABLE) $(SHARED_LIB) $(STATIC_LIB)
 debug: CFLAGS += $(CFLAGS_DEBUG)
 debug: $(EXECUTABLE)
 
-doc: include/progressbar.h include/statusbar.h
+doc: $(INCLUDE)/progressbar.h $(INCLUDE)/statusbar.h
 	mkdir -p doc
 	doxygen
 
