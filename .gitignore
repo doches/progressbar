@@ -5,3 +5,10 @@ doc/
 *.so
 *.a
 *.swp
+CMakeFiles/
+lib/Makefile
+lib/CMakeFiles/
+*/*.cmake
+*.cmake
+CMakeCache.txt
+test/Makefile

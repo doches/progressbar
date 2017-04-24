@@ -1,6 +1,6 @@
 project(ProgressBar)
 
-cmake_minimum_required(VERSION 3.7)
+cmake_minimum_required(VERSION 3.0)
 
 set(CURSES_NEED_NCURSES TRUE)
 find_package(Curses)
