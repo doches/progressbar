@@ -1,6 +1,6 @@
 ## What is this thing?
 
-![gif](.//nvEHTgn.gif)
+![GIF created with `ttygif`](./example_output/demo.gif)
 
 `progressbar` is a C-class (it's a convention, dammit) for displaying attractive progress bars on the command line. It's heavily influenced by the ruby `ProgressBar` gem, whose api and behavior it imitates.
 
