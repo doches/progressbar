@@ -1,8 +1,8 @@
 ## What is this thing?
 
-`progressbar` is a C-class (it's a convention, dammit) for displaying attractive
-progress bars on the command line. It's heavily influenced by the ruby `ProgressBar`
-gem, whose api and behavior it imitates.
+![gif](.//nvEHTgn.gif)
+
+`progressbar` is a C-class (it's a convention, dammit) for displaying attractive progress bars on the command line. It's heavily influenced by the ruby `ProgressBar` gem, whose api and behavior it imitates.
 
 ## Ok, what the hell is a C-class, and how do I use one?
 
