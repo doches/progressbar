@@ -5,5 +5,5 @@
   "description": "A C library for displaying command-line progress bars",
   "keywords": ["terminal", "tty", "progress", "progressbar", "statusbar", "console"],
   "license": "BSD",
-  "src": ["include/progressbar.h", "include/progressbar.c", "include/statusbar.h", "include/statusbar.c"]
+  "src": ["include/progressbar/progressbar.h", "lib/progressbar.c", "include/progressbar/statusbar.h", "lib/statusbar.c"]
 }
