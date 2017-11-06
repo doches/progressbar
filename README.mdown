@@ -10,13 +10,15 @@ progressbar is implemented in pure C99, but using a vaguely object-oriented conv
 
 Example usage:
 
-    progressbar *progress = progressbar_new("Loading",100);
-    for(int i=0; i < 100; i++)
-    {
-      // Do some stuff
-      progressbar_inc(progress);
-    }
-    progressbar_finish(progress);
+```c
+progressbar *progress = progressbar_new("Loading",100);
+for(int i=0; i < 100; i++)
+{
+  // Do some stuff
+  progressbar_inc(progress);
+}
+progressbar_finish(progress);
+```
 
 Example output (from `progressbar_demo.c`):
 
@@ -43,6 +45,8 @@ so feel free to take it and run with it. Details can be found in the `LICENSE` f
 
 If progressbar fails to build because `termcap.h` isn't found, you're probably missing the ncurses dev libraries.
 
-    gcc -c -std=c99 -Iinclude lib/progressbar.c
-    lib/progressbar.c:13:45: fatal error: termcap.h: No such file or directory
-    compilation terminated.
+```
+gcc -c -std=c99 -Iinclude lib/progressbar.c
+lib/progressbar.c:13:45: fatal error: termcap.h: No such file or directory
+compilation terminated.
+```
