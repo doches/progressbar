@@ -1,6 +1,6 @@
 EXECUTABLE = demo
-SHARED_LIB = libprogressbar.so
-STATIC_LIB = libprogressbar.a
+#SHARED_LIB = libprogressbar.so
+#STATIC_LIB = libprogressbar.a
 
 SRC=lib
 INCLUDE=include/progressbar
@@ -9,7 +9,7 @@ CFLAGS += -std=c99 -I$(INCLUDE) -Wimplicit-function-declaration -Wall -Wextra -p
 CFLAGS_DEBUG = -g -O0
 LDLIBS = -lncurses
 
-all: $(EXECUTABLE) $(SHARED_LIB) $(STATIC_LIB)
+all: $(EXECUTABLE) libprogressbar.so libprogressbar.a libstatusbar.so libstatusbar.a
 
 debug: CFLAGS += $(CFLAGS_DEBUG)
 debug: $(EXECUTABLE)
@@ -25,6 +25,15 @@ libprogressbar.so: $(INCLUDE)/progressbar.h $(SRC)/progressbar.c
 
 libprogressbar.a: libprogressbar.a(progressbar.o)
 
+libstatusbar.so: $(INCLUDE)/statusbar.h $(SRC)/statusbar.c
+	$(CC) -fPIC -shared -o $@ -c $(CFLAGS) $(CPPFLAGS) $(SRC)/statusbar.c
+
+libstatusbar.a: libstatusbar.a(statusbar.o)	
+
+install:
+	cp libprogressbar.* libstatusbar.* /usr/local/lib
+	cp -r include/progressbar /usr/local/include
+
 %.o: $(SRC)/%.c $(INCLUDE)/%.h
 	$(CC) -c $(CFLAGS) $(CPPFLAGS) $< -o $@
 
@@ -34,5 +43,5 @@ demo.o: $(TEST)/demo.c
 
 .PHONY: clean
 clean:
-	rm -f *.o $(EXECUTABLE) $(SHARED_LIB) $(STATIC_LIB)
+	rm -f *.o $(EXECUTABLE) $libprogressbar.so libprogressbar.a libstatusbar.so libstatusbar.a
 	rm -rf doc
