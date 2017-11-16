@@ -62,18 +62,14 @@ void statusbar_inc(statusbar *bar)
 
 void statusbar_draw(statusbar *bar)
 {
-  // Erase the last draw. If anything else has been printed to stderr,
-  // things are going to look mighty interesting...
-  for(int i=0; i < bar->last_printed; i++) {
-    fprintf(stderr,"\b");
-  }
+  // Erase the last draw.
+  fprintf(stderr,"\r");
 
-  fprintf(
+  bar->last_printed = fprintf(
         stderr,
-        "%s: %c%n",
+        "%s: %c",
         bar->label,
-        bar->format[bar->format_index],
-        &(bar->last_printed)
+        bar->format[bar->format_index]
     );
 
   return;
@@ -92,21 +88,15 @@ void statusbar_finish(statusbar *bar)
   unsigned int s = offset;
 
   // Erase the last draw
-  for(int i=0; i < bar->last_printed; i++) {
-    fprintf(stderr,"\b");
-  }
+  fprintf(stderr,"\r");
 
   // Calculate number of spaces for right-justified time to completion
-  fprintf(stderr,"%s: %3d:%02d:%02d%n",bar->label,h,m,s,&(bar->last_printed));
-  for(int i=0; i < bar->last_printed; i++) {
-    fprintf(stderr,"\b");
-  }
+  bar->last_printed = fprintf(stderr,"%s: %3d:%02d:%02d",bar->label,h,m,s);
+  fprintf(stderr,"\r");
 
   // Print right-justified
   fprintf(stderr,"%s: ",bar->label);
-  for(int i=0; i < (80 - (bar->last_printed)); i++) {
-    fprintf(stderr," ");
-  }
+  fprintf(stderr,"%*s",80 - (bar->last_printed),"");
   fprintf(stderr,"%3d:%02d:%02d\n",h,m,s);
 
   // We've finished with this statusbar, so go ahead and free it.
