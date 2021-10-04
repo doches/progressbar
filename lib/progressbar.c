@@ -173,11 +173,7 @@ static void progressbar_draw(const progressbar *bar)
 		                            ? progressbar_calc_time_components(difftime(time(NULL), bar->start))
 		                            : progressbar_calc_time_components(progressbar_remaining_seconds(bar));
 
-  if (label_width == 0) {
-    // The label would usually have a trailing space, but in the case that we don't print
-    // a label, the bar can use that space instead.
-    bar_width += 1;
-  } else {
+  if (label_width != 0) {
     // Draw the label
     fwrite(bar->label, 1, label_width, stderr);
     fputc(' ', stderr);
