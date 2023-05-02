@@ -18,7 +18,7 @@
  * Finishing the progressbar (on success or failure): \ref statusbar_finish
  *
  * \section Example Example Code
- * See \ref main in progressbar_demo.c
+ * See \ref main in demo.c
  *
  * Download the code from the repository at https://github.com/JohannesBuchner/progressbar
  *
